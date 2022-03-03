@@ -41,27 +41,28 @@ def post_product():
         fieldnames = ['id', 'name','price']
         writer = DictWriter(csv_file, fieldnames)
         writer.writerow(dict(data))
-    return "sucesso"
+    return jsonify(data)
 
 @app.patch('/products/<int:product_id>')
 def patch_product(product_id):
     with open(FILEPATH, 'r') as csv_file:
         reader = list(DictReader(csv_file))
-        teste = [test for test in reader if int(test['id']) == product_id]
-        if teste == []:
-            return 'id invalido',404
+        my_product = [test for test in reader if int(test['id']) == product_id]
+        if my_product == []:
+            return {"error": f"product id {product_id} not found"},404
     with open(FILEPATH, 'w') as csv_file:
-        teste = request.get_json()
+        my_product = request.get_json()
         for i in reader:
             if int(i['id']) == product_id: 
                 for j in i.keys():
                     if j != 'id': 
-                        reader[product_id -1][j] = teste[j]
+                        reader[product_id -1][j] = my_product[j]
+                        break
         fieldnames = ['id', 'name', 'price']
         writer = DictWriter(csv_file, fieldnames)
         writer.writeheader()
         writer.writerows(reader)
-    return 'Evento atualizado',200
+    return jsonify(reader[product_id-1]),200
         
 @app.delete('/products/<product_id>')
 def deleteProduct(product_id):    
@@ -69,12 +70,12 @@ def deleteProduct(product_id):
         reader = list(DictReader(csv_file))
         verify = [verify for verify in reader if verify['id'] == product_id]
         if verify == []:
-            return 'id invalido',404
+            return {"error": f"product id {product_id} not found"},404
         event = [event for event in reader if event['id'] != product_id]
     with open(FILEPATH, 'w') as csv_file:
         fieldnames = ['id', 'name', 'price']
         writer = DictWriter(csv_file, fieldnames)
         writer.writeheader()
         writer.writerows(event)
-    return 'Evento deletado',200
+    return jsonify(verify),200
  

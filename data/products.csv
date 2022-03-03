@@ -13,7 +13,7 @@ id,name,price
 12,panela,25.99
 13,prato,10.99
 14,açucar,7.99
-15,sal,5.99
+15,bacon,5
 16,pipoca,3.14
 17,sabonete,5.99
 18,miojo,2.39
@@ -24,8 +24,10 @@ id,name,price
 23,cadeira gamer,445.99
 24,mouse gamer,215.99
 25,tv,995.99
-26,liquidificador,65.99
+26,biscoito,65.99
 27,furadeira,99.15
 28,ferro de passar,55.8
-29,coberta,55.99
-30,sofa,600.15
+29,bacon,5
+30,bacon,5
+31,biscoito,25.00
+32,biscoito,25.00
